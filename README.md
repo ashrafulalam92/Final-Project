@@ -1,6 +1,2 @@
 MediCo - Rural Healthcare Platform
-
-MediCo is a web-based healthcare platform designed to bridge rural communities with essential medical services. It enables patients, doctors, and pharmacies to interact, book appointments, order medicines, and access health education—all in one place.
-
-
-Bridging rural communities with healthcare.
+It is a web-based healthcare platform designed to bridge rural communities with essential medical services. It enables patients, doctors, and pharmacies to interact, book appointments, order medicines, and access health education—all in one place.
