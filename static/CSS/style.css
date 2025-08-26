@@ -1,0 +1,87 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: #f8f9fa;
+    color: #212529;
+}
+.container, .card {
+    border-radius: 1rem;
+}
+.card {
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    border: none;
+}
+input, select, button, textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    font-size: 1rem;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #0d6efd;
+    outline: none;
+}
+button, .btn {
+    background: linear-gradient(90deg, #0d6efd 60%, #0dcaf0 100%);
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+button:hover, .btn:hover {
+    background: linear-gradient(90deg, #0dcaf0 60%, #0d6efd 100%);
+    color: #fff;
+}
+a {
+    color: #0d6efd;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover {
+    color: #0dcaf0;
+}
+.table {
+    background: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+th, td {
+    padding: 14px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+    vertical-align: middle;
+}
+th {
+    background: #e9ecef;
+    font-weight: 600;
+}
+.alert {
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+.form-control, .form-check-input {
+    border-radius: 0.5rem;
+}
+.form-check-label {
+    font-size: 1rem;
+}
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.card-text {
+    font-size: 1.05rem;
+}
+.btn-lg {
+    font-size: 1.2rem;
+    padding: 14px 28px;
+}
+.shadow-sm {
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07)!important;
+}
+.display-3 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
