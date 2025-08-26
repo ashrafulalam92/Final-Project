@@ -174,28 +174,28 @@ def health_education():
 from groq import Groq
 
 @app.route('/symptom_checker', methods=['GET', 'POST'])
-def symptom_checker():
-    advice = None
-    if request.method == 'POST':
-        symptoms = request.form['symptoms']
-        api_key = os.getenv("GROQ_API_KEY")
-        client = Groq(api_key=api_key)
-        completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[
-                {
-                    "role": "user",
-                    "content": symptoms
-                }
-            ],
-            temperature=1,
-            max_completion_tokens=1024,
-            top_p=1,
-            stream=False,
-            stop=None
-        )
-        advice = completion.choices[0].message.content
-    return render_template('symptom_checker.html', advice=advice)
+# def symptom_checker():
+#     advice = None
+#     if request.method == 'POST':
+#         symptoms = request.form['symptoms']
+#         api_key = os.getenv("GROQ_API_KEY")
+#         client = Groq(api_key=api_key)
+#         completion = client.chat.completions.create(
+#             model="llama-3.3-70b-versatile",
+#             messages=[
+#                 {
+#                     "role": "user",
+#                     "content": symptoms
+#                 }
+#             ],
+#             temperature=1,
+#             max_completion_tokens=1024,
+#             top_p=1,
+#             stream=False,
+#             stop=None
+#         )
+#         advice = completion.choices[0].message.content
+#     return render_template('symptom_checker.html', advice=advice)
 
 @app.route('/forum', methods=['GET', 'POST'])
 def forum():
