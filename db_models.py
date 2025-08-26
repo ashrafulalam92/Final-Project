@@ -250,6 +250,17 @@ def add_forum_answer(question_id, doctor_id, answer):
     cursor.close()
     conn.close()
 
+def add_medicine(pharmacy_id, name, stock, price):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO medicines (pharmacy_id, name, stock, price)
+        VALUES (%s, %s, %s, %s)
+    """, (pharmacy_id, name, stock, price))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 def remove_medicine(medicine_id):
     conn = get_db_connection()
     cursor = conn.cursor()
