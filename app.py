@@ -22,7 +22,7 @@ from db_models import (
     update_order_status,
     add_forum_question,
     get_forum_questions_with_answers,
-    add_forum_answer
+    add_forum_answer,
 )
 
 app = Flask(__name__)
@@ -174,28 +174,28 @@ def health_education():
 from groq import Groq
 
 @app.route('/symptom_checker', methods=['GET', 'POST'])
-# def symptom_checker():
-#     advice = None
-#     if request.method == 'POST':
-#         symptoms = request.form['symptoms']
-#         api_key = os.getenv("GROQ_API_KEY")
-#         client = Groq(api_key=api_key)
-#         completion = client.chat.completions.create(
-#             model="llama-3.3-70b-versatile",
-#             messages=[
-#                 {
-#                     "role": "user",
-#                     "content": symptoms
-#                 }
-#             ],
-#             temperature=1,
-#             max_completion_tokens=1024,
-#             top_p=1,
-#             stream=False,
-#             stop=None
-#         )
-#         advice = completion.choices[0].message.content
-#     return render_template('symptom_checker.html', advice=advice)
+def symptom_checker():
+    advice = None
+    if request.method == 'POST':
+        symptoms = request.form['symptoms']
+        api_key = os.getenv("GROQ_API_KEY")
+        client = Groq(api_key=api_key)
+        completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "user",
+                    "content": symptoms
+                }
+            ],
+            temperature=1,
+            max_completion_tokens=1024,
+            top_p=1,
+            stream=False,
+            stop=None
+        )
+        advice = completion.choices[0].message.content
+    return render_template('symptom_checker.html', advice=advice)
 
 @app.route('/forum', methods=['GET', 'POST'])
 def forum():
@@ -223,37 +223,25 @@ def logout():
     flash('Logged out.', 'info')
     return redirect('/')
 
+from db_models import add_medicine, remove_medicine
 @app.route('/add_medicine', methods=['POST'])
-def add_medicine():
+def add_medicine_route():
     if 'user_id' not in session or session.get('role') != 'pharmacy':
         return redirect('/login')
     pharmacy_id = request.form['pharmacy_id']
     name = request.form['name']
     stock = request.form['stock']
     price = request.form['price']
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO medicines (pharmacy_id, name, stock, price)
-        VALUES (%s, %s, %s, %s)
-    """, (pharmacy_id, name, stock, price))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    add_medicine(pharmacy_id, name, stock, price)
     flash('Medicine added!', 'success')
     return redirect('/dashboard')
 
 @app.route('/remove_medicine', methods=['POST'])
-def remove_medicine():
+def remove_medicine_route():
     if 'user_id' not in session or session.get('role') != 'pharmacy':
         return redirect('/login')
     medicine_id = request.form['medicine_id']
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM medicines WHERE id=%s", (medicine_id,))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    remove_medicine(medicine_id)
     flash('Medicine removed!', 'success')
     return redirect('/dashboard')
 
