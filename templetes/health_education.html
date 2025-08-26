@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="mb-4 text-warning">📚 Health Education</h2>
+                <h4>Featured Articles</h4>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">
+                        <strong>Understanding Hypertension:</strong>
+                        Learn about causes, symptoms, and management of high blood pressure.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Diabetes Prevention:</strong>
+                        Tips to reduce your risk of developing diabetes.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Mental Health Matters:</strong>
+                        Recognize signs of stress and depression and how to seek help.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Nutrition Basics:</strong>
+                        How to eat a balanced diet for lifelong health.
+                    </li>
+                </ul>
+                <h4>Recommended Videos</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/L7y5bJp3sZc" title="Healthy Eating Tips" allowfullscreen></iframe>
+                        </div>
+                        <p class="mt-2">Healthy Eating Tips</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/3p8bQg1hQJ8" title="Managing Stress" allowfullscreen></iframe>
+                        </div>
+                        <p class="mt-2">Managing Stress</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

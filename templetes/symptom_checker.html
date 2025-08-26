@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <h2 class="mb-4 text-danger">Symptom Checker</h2>
+            <form method="POST">
+                <textarea name="symptoms" class="form-control mb-3" placeholder="Describe your symptoms..." required></textarea>
+                <button type="submit" class="btn btn-danger w-100">Check</button>
+            </form>
+            {% if advice %}
+            <div class="alert alert-info mt-3">{{ advice }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

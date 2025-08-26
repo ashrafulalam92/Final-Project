@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="mb-3 text-info">{{ pharmacy.name }}</h2>
+                <p><strong>Location:</strong> {{ pharmacy.location }}</p>
+                <p><strong>Operating Hours:</strong> {{ pharmacy.hours }}</p>
+                <h4 class="mt-4">Available Medicines</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for med in medicines %}
+                    <tr>
+                        <td>{{ med.name }}</td>
+                        <td>{{ med.stock }}</td>
+                        <td>{{ med.price }}</td>
+                        <td>
+                            {% if session.get('role') == 'patient' %}
+                            <form method="POST" action="/order_medicine">
+                                <input type="hidden" name="pharmacy_id" value="{{ pharmacy.id }}">
+                                <input type="hidden" name="medicine_id" value="{{ med.id }}">
+                                <button type="submit" class="btn btn-primary btn-sm">Order</button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

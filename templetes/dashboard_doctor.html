@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="mb-3 text-primary">Welcome, Dr. {{ name }}!</h2>
+                <h4>Your Appointments</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Patient</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for appt in appointments %}
+                    <tr>
+                        <td>{{ appt.patient_name }}</td>
+                        <td>
+                            {% if appt.status == 'pending' %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% elif appt.status == 'confirmed' %}
+                                <span class="badge bg-success">Confirmed</span>
+                            {% elif appt.status == 'declined' %}
+                                <span class="badge bg-danger">Declined</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if appt.status == 'pending' %}
+                            <form method="POST" action="/appointment_action" class="d-inline">
+                                <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+                                <button type="submit" name="action" value="confirm" class="btn btn-success btn-sm">Confirm</button>
+                                <button type="submit" name="action" value="decline" class="btn btn-danger btn-sm">Decline</button>
+                            </form>
+                            {% else %}
+                            <span class="text-muted">No action</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a href="/forum" class="btn btn-secondary mt-3">Community Forum</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

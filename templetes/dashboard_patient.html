@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="mb-3 text-primary">Welcome, {{ name }}!</h2>
+                <h4>Your Appointments</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for appt in appointments %}
+                    <tr>
+                        <td>{{ appt.doctor_name }}</td>
+                        <td>
+                            {% if appt.status == 'pending' %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% elif appt.status == 'confirmed' %}
+                                <span class="badge bg-success">Confirmed</span>
+                            {% elif appt.status == 'declined' %}
+                                <span class="badge bg-danger">Declined</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <h4 class="mt-4">Your Medicine Orders</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Pharmacy</th>
+                        <th>Medicine</th>
+                        <th>Status</th>
+                        <th>Message</th>
+                        <th>Ordered At</th>
+                    </tr>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.pharmacy_name }}</td>
+                        <td>{{ order.medicine_name }}</td>
+                        <td>
+                            {% if order.status == 'pending' %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% elif order.status == 'approved' %}
+                                <span class="badge bg-success">Approved</span>
+                            {% elif order.status == 'declined' %}
+                                <span class="badge bg-danger">Declined</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ order.message }}</td>
+                        <td>{{ order.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4>Available Doctors</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Specialty</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.name }}</td>
+                        <td>{{ doctor.specialty }}</td>
+                        <td>
+                            <form method="POST" action="/book">
+                                <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+                                <button type="submit" class="btn btn-primary btn-sm">Book</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a href="/pharmacies" class="btn btn-info w-100 mb-2">Find Pharmacies</a>
+                <a href="/symptom_checker" class="btn btn-danger w-100 mb-2">Symptom Checker</a>
+                <a href="/forum" class="btn btn-secondary w-100">Community Forum</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="mb-4 text-secondary">Community Forum</h2>
+                {% if role == 'patient' %}
+                <form method="POST" class="mb-4">
+                    <textarea name="question" class="form-control mb-2" placeholder="Ask a health-related question..." required></textarea>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" name="anonymous" id="anonymous">
+                        <label class="form-check-label" for="anonymous">Ask anonymously</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Post Question</button>
+                </form>
+                {% endif %}
+                <ul class="list-group">
+                    {% for q in questions %}
+                    <li class="list-group-item mb-3">
+                        <strong>
+                            {% if q.anonymous %}
+                                Anonymous
+                            {% else %}
+                                Patient #{{ q.user_id }}{% if q.patient_name %} ({{ q.patient_name }}){% endif %}
+                            {% endif %}
+                        </strong>
+                        <span class="text-muted">asked:</span>
+                        <div class="fw-bold">{{ q.question }}</div>
+                        <small class="text-muted">{{ q.created_at }}</small>
+                        <div class="mt-2">
+                            {% for ans in q.answers %}
+                            <div class="border rounded p-2 mb-2">
+                                <strong>Doctor: {{ ans.doctor_name }}</strong>
+                                <div>{{ ans.answer }}</div>
+                                <small class="text-muted">{{ ans.created_at }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% if role == 'doctor' %}
+                        <form method="POST" class="mt-2">
+                            <input type="hidden" name="question_id" value="{{ q.id }}">
+                            <textarea name="answer" class="form-control" placeholder="Write your answer..." required></textarea>
+                            <button type="submit" class="btn btn-success btn-sm mt-1">Post Answer</button>
+                        </form>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

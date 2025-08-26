@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-3 text-primary fw-bold mb-3">Welcome to MediCo 🏥</h1>
+    <p class="lead text-secondary mb-4">Bridging rural communities with doctors, pharmacies, and health education.</p>
+    <div class="mb-4">
+        <a href="/login" class="btn btn-primary btn-lg me-2">Login</a>
+        <a href="/signup" class="btn btn-outline-primary btn-lg">Sign Up</a>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-success">📅 Smart Appointment Scheduling</h4>
+                    <p class="card-text">Book appointments with doctors by specialty and availability. Doctors manage schedules and approvals.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-info">💊 Pharmacy & Medicine Availability</h4>
+                    <p class="card-text">Find pharmacies, check medicine stock, compare prices, and request delivery or pickup.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <a href="/health-education" class="btn btn-warning btn-lg mb-2" style="font-size:1.5rem;">
+                        📚 Health Education
+                    </a>
+                    <p class="card-text">Access health articles and wellness videos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a href="/forum" class="btn btn-danger btn-lg" style="font-size:1.5rem;">
+            🚑 Community Forum
+        </a>
+        <p class="mt-2 text-muted">Use our symptom checker or ask the community for help.</p>
+    </div>
+</div>
+{% endblock %}

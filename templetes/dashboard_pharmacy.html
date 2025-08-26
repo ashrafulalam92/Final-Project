@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="mb-3 text-primary">Welcome, {{ name }} (Pharmacy Owner)!</h2>
+                {% if pharmacy %}
+                    <h4>Your Pharmacy: {{ pharmacy.name }}</h4>
+                    <p><strong>Location:</strong> {{ pharmacy.location }}</p>
+                    <p><strong>Operating Hours:</strong> {{ pharmacy.hours }}</p>
+                    <h5 class="mt-4">Medicines in Stock</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Name</th>
+                            <th>Stock</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for med in medicines %}
+                        <tr>
+                            <td>{{ med.name }}</td>
+                            <td>{{ med.stock }}</td>
+                            <td>{{ med.price }}</td>
+                            <td>
+                                <form method="POST" action="/remove_medicine" style="display:inline;">
+                                    <input type="hidden" name="medicine_id" value="{{ med.id }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <h5 class="mt-4">Add New Medicine</h5>
+                    <form method="POST" action="/add_medicine">
+                        <input type="hidden" name="pharmacy_id" value="{{ pharmacy.id }}">
+                        <input type="text" name="name" class="form-control mb-2" placeholder="Medicine Name" required>
+                        <input type="number" name="stock" class="form-control mb-2" placeholder="Stock" required>
+                        <input type="number" step="0.01" name="price" class="form-control mb-2" placeholder="Price" required>
+                        <button type="submit" class="btn btn-success">Add Medicine</button>
+                    </form>
+                    <h4 class="mt-4">Pending Medicine Orders</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Medicine</th>
+                            <th>Status</th>
+                            <th>Message</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.patient_name }}</td>
+                            <td>{{ order.medicine_name }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>{{ order.message }}</td>
+                            <td>
+                                {% if order.status == 'pending' %}
+                                <form method="POST" action="/order_action" style="display:inline;">
+                                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                                    <input type="text" name="message" class="form-control" placeholder="Short message" required>
+                                    <button type="submit" name="action" value="approve" class="btn btn-success btn-sm mt-1">Approve</button>
+                                    <button type="submit" name="action" value="decline" class="btn btn-danger btn-sm mt-1">Decline</button>
+                                </form>
+                                {% else %}
+                                <span class="text-muted">No action</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p class="text-danger">No pharmacy profile found for this account.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
